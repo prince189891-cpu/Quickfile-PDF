@@ -70,7 +70,7 @@
                         <i data-lucide="upload" class="w-8 h-8 mb-2 text-white/40 group-hover:text-white transition-colors"></i>
                         <span id="uploadText" class="text-sm font-medium text-white/60 group-hover:text-white transition-colors">Click to upload image</span>
                     </div>
-                    <input type="file" id="imageInput" class="hidden" accept="image/*" onchange="handleImageUpload(event)>
+                    <input type="file" id="imageInput" class="hidden" accept="image/*" onchange="handleImageUpload(event)"multiple>
                 </div>
                 <button onclick="downloadImagePdf()" class="w-full mt-4 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold bg-white text-[#0b3d91] hover:bg-white/90 shadow-lg transition-all active:scale-95">
                     <i data-lucide="download" class="w-5 h-5"></i> Convert Image to PDF
@@ -225,7 +225,7 @@
             const preview = document.getElementById('imagePreview');
             preview.style.backgroundImage = `url(${imgData})`;
             preview.classList.remove('hidden');
-            // यह लाइन बताएगी कि कितनी फोटो चुनी गई हैं
+            // यहाँ लाइन पूरी होनी चाहिए:
             document.getElementById('uploadText').textContent = `${files.length} Photos Selected`;
         };
         reader.readAsDataURL(files[0]);
