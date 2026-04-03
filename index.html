@@ -20,9 +20,9 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .hidden { display: none; }
     </style>
+     <link rel="manifest" href="manifest.json">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-[#0b3d91] via-[#0a2e6b] to-[#051937] text-white selection:bg-white/20">
-
     <!-- Status Bar -->
     <div class="bg-black/20 backdrop-blur-md border-b border-white/10 px-6 py-2">
         <div class="max-w-2xl mx-auto flex justify-center items-center text-xs font-medium uppercase tracking-widest text-white/60">
@@ -39,31 +39,13 @@
         <header class="text-center mb-12">
             <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-4 backdrop-blur-sm border border-white/20 shadow-2xl">
                 <!-- SVG Logo (Glassmorphism Style) -->
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-16 h-16">
-                    <defs>
-                        <linearGradient id="glass-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="white" stopOpacity="0.2" />
-                            <stop offset="100%" stopColor="white" stopOpacity="0.05" />
-                        </linearGradient>
-                    </defs>
-                    <rect x="10" y="10" width="80" height="80" rx="20" fill="url(#glass-grad)" stroke="white" strokeOpacity="0.3" strokeWidth="0.5" />
-                    <rect x="12" y="12" width="76" height="76" rx="18" fill="#0b3d91" fillOpacity="0.4" />
-                    <path d="M35 30H58L70 42V70C70 72.7614 67.7614 75 65 75H35C32.2386 75 30 72.7614 30 70V35C30 32.2386 32.2386 30 35 30Z" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M58 30V42H70" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M42 48C42 45.7909 43.7909 44 46 44H54C56.2091 44 58 45.7909 58 48V56C58 58.2091 56.2091 60 54 60H46C43.7909 60 42 58.2091 42 56V48Z" stroke="#FFD700" strokeWidth="5" />
-                    <path d="M54 56L60 62" stroke="#FFD700" strokeWidth="5" strokeLinecap="round" />
-                    <path d="M25 45H20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M23 52H18" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M25 59H20" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" />
-                </svg>
+                <img src="logo.png" alt="QuickFile PDF Logo" style="width: 100px; height: 100px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0, 162, 255, 0.4); margin-bottom: 15px;">
             </div>
             <h1 class="text-4xl font-bold tracking-tight mb-2">QuickFile PDF</h1>
             <p class="text-white/60 text-lg">Create, convert, and craft your documents</p>
         </header>
-
         <div class="space-y-8">
-            
-            <!-- Section: Text to PDF (Multi-page Support) -->
+           <!-- Section: Text to PDF (Multi-page Support) -->
             <section class="glass rounded-3xl p-6 shadow-xl">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="p-2 bg-white/10 rounded-lg"><i data-lucide="type" class="w-5 h-5"></i></div>
@@ -76,7 +58,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Section: Image to PDF -->
             <section class="glass rounded-3xl p-6 shadow-xl">
                 <div class="flex items-center gap-3 mb-6">
