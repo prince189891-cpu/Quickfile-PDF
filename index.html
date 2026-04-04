@@ -325,10 +325,7 @@ async function generateFinalPdf(files) {
             startAdSequence(() => generatePdf(noteText, fileName));
         }
              // प्रिंस भाई, यह कोड बटन को हिलने-डुलने और बातें करने की शक्ति देगा
-    let btn = document.getElementById('ai-btn');
-    let chat = document.getElementById('chat-box');
-    let idleTime;
-
+   let btn, chat, idleTime;
     function dragStart(e) {
         let isDragging = false;
         let startX = e.clientX || (e.touches && e.touches[0].clientX);
@@ -364,7 +361,6 @@ async function generateFinalPdf(files) {
             setTimeout(() => btn.style.transition = "none", 1000);
         }, 15000); // 15 सेकंड बाद बटन खुद वापस आ जाएगा
     }
-    resetTimer();
 
     function toggleChat() {
     chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
@@ -388,6 +384,11 @@ async function generateFinalPdf(files) {
             input.value = '';
         }
     }
+      window.onload = function() {
+    btn = document.getElementById('ai-btn');
+    chat = document.getElementById('chat-box');
+    resetTimer();
+};
          
     </script>
     <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; margin-top: 20px;">
