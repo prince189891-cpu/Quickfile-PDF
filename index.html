@@ -402,7 +402,7 @@ async function askAI() {
             aiLoading.innerHTML = `<strong>AI:</strong> ${aiText}`;
             selectedImageBase64 = null;
         } catch (error) {
-            aiLoading.innerHTML = "<strong>AI:</strong> प्रिंस भाई, कुछ गड़बड़ है। फिर से ट्राई करें!";
+            aiLoading.innerHTML = "<strong>AI Error:</strong> " + error.message;
         }
         logs.scrollTop = logs.scrollHeight;
     }
