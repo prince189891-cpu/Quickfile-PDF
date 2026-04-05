@@ -397,10 +397,21 @@ async function askAI() {
                 body: JSON.stringify({ contents })
             });
 
-            const data = await response.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            aiLoading.innerHTML = `<strong>AI:</strong> ${aiText}`;
-            selectedImageBase64 = null;
+                        const data = await response.json();
+
+            if (data.error) {
+                aiLoading.innerHTML = "<strong>AI Error:</strong> " + data.error.message;
+                return;
+            }
+
+            if (data.candidates && data.candidates[0]) {
+                const aiText = data.candidates[0].content.parts[0].text;
+                aiLoading.innerHTML = `<strong>AI:</strong> ${aiText}`;
+                selectedImageBase64 = null;
+            } else {
+                aiLoading.innerHTML = "<strong>AI Error:</strong> गूगल ने खाली जवाब भेजा है।";
+            }
+             
         } catch (error) {
             aiLoading.innerHTML = "<strong>AI Error:</strong> " + error.message;
         }
