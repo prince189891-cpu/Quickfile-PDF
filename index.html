@@ -23,6 +23,68 @@
         .animate-spin-slow { animation: spin 3s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .hidden { display: none; }
+         /* प्रिंस भाई का ऑल-इन-वन पारदर्शी गियर डिज़ाइन */
+.setting-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    text-align: right;
+    z-index: 50;
+}
+
+.gear-icon {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.gear-icon:hover {
+    transform: rotate(90deg);
+    color: white;
+}
+
+.quality-label {
+    display: block;
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Inter', sans-serif;
+    margin-top: -2px;
+    letter-spacing: 0.5px;
+}
+
+/* पारदर्शी पैनल जो गियर दबाने पर खुलेगा */
+.glass-panel {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    background: rgba(11, 61, 145, 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    border-radius: 10px;
+    width: 100px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.panel-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 10px;
+    padding: 6px;
+    margin: 3px 0;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.panel-btn:hover {
+    background: #00a8ff;
+}
     </style>
      <link rel="manifest" href="manifest.json">
 </head>
@@ -54,6 +116,15 @@
                 <div class="flex items-center gap-3 mb-6">
                     <div class="p-2 bg-white/10 rounded-lg"><i data-lucide="type" class="w-5 h-5"></i></div>
                     <h2 class="text-xl font-semibold">Text to PDF</h2>
+                     <div class="setting-container">
+    <div class="gear-icon" onclick="toggleSettings('panel1')">⚙️</div>
+    <span class="quality-label">Quality</span>
+    
+    <div id="panel1" class="glass-panel">
+        <button class="panel-btn" onclick="setQuality(1.0)">High Quality</button>
+        <button class="panel-btn" onclick="setQuality(0.7)">Medium</button>
+        <button class="panel-btn" onclick="setQuality(0.4)">Low Size</button>
+    </div>
                 </div>
                 <textarea id="textInput" class="w-full h-48 bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all resize-none" placeholder="Paste or write your text here (Supports unlimited pages)..."></textarea>
                 <div class="grid grid-cols-1 gap-4 mt-4">
@@ -67,7 +138,14 @@
                 <div class="flex items-center gap-3 mb-6">
                     <div class="p-2 bg-white/10 rounded-lg"><i data-lucide="image" class="w-5 h-5"></i></div>
                     <h2 class="text-xl font-semibold">Image to PDF</h2>
-                </div>
+                     <div class="setting-container">
+    <div class="gear-icon" onclick="toggleSettings('panel2')">⚙️</div>
+    <span class="quality-label">Quality</span>
+    <div id="panel2" class="glass-panel">
+        <button class="panel-btn" onclick="setQuality(1.0)">High Quality</button>
+        <button class="panel-btn" onclick="setQuality(0.7)">Medium</button>
+        <button class="panel-btn" onclick="setQuality(0.4)">Low Size</button>
+    </div>
                 <div onclick="document.getElementById('imageInput').click()" class="group relative w-full h-48 border-2 border-dashed border-white/20 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-white/40 hover:bg-white/5 transition-all overflow-hidden">
                     <div id="imagePreview" class="absolute inset-0 w-full h-full bg-cover bg-center opacity-40 hidden"></div>
                     <div class="relative z-10 flex flex-col items-center">
@@ -86,6 +164,14 @@
                 <div class="flex items-center gap-3 mb-6">
                     <div class="p-2 bg-white/10 rounded-lg"><i data-lucide="file-plus" class="w-5 h-5"></i></div>
                     <h2 class="text-xl font-semibold">Quick Notes</h2>
+                    <div class="setting-container">
+    <div class="gear-icon" onclick="toggleSettings('panel3')">⚙️</div>
+    <span class="quality-label">Quality</span>
+    <div id="panel3" class="glass-panel">
+        <button class="panel-btn" onclick="setQuality(1.0)">High Quality</button>
+        <button class="panel-btn" onclick="setQuality(0.7)">Medium</button>
+        <button class="panel-btn" onclick="setQuality(0.4)">Low Size</button>
+    </div>       
                 </div>
                 <input type="text" id="fileName" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 mb-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all" placeholder="Filename (optional)">
                 <textarea id="noteText" class="w-full h-32 bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all resize-none" placeholder="Write your note here..."></textarea>
@@ -141,7 +227,34 @@
         // Initialize Lucide Icons
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
+         // प्रिंस भाई का गियर बटन कंट्रोलर (पैनल खोलने और बंद करने के लिए)
+function toggleSettings(panelId) {
+    const allPanels = document.querySelectorAll('.glass-panel');
+    allPanels.forEach(p => {
+        if(p.id !== panelId) p.style.display = 'none'; // दूसरे पैनल बंद करें
+    });
+    
+    const panel = document.getElementById(panelId);
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
 
+// बाहर क्लिक करने पर सेटिंग्स अपने आप बंद हो जाएं
+document.addEventListener('mousedown', function(event) {
+    const isGear = event.target.closest('.gear-icon');
+    const isPanel = event.target.closest('.glass-panel');
+    if (!isGear && !isPanel) {
+        document.querySelectorAll('.glass-panel').forEach(p => p.style.display = 'none');
+    }
+});
+
+// क्वालिटी सेट करने का फंक्शन
+let currentQuality = 0.8; // डिफ़ॉल्ट मीडियम क्वालिटी
+function setQuality(val) {
+    currentQuality = val;
+    let label = val === 1.0 ? 'High' : val === 0.7 ? 'Medium' : 'Low';
+    alert("प्रिंस भाई, क्वालिटी सेट हो गई: " + label);
+         }
+         
         let imgData = null;
 
         // --- PDF Generation with Multi-page Support (Auto-Pagination) ---
